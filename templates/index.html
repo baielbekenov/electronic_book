@@ -1,11 +1,14 @@
-{% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Категория 1{% endblock %}
+
+{% block content %}
+  <div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+    Контент
+  </button>
+    {% for i in lessons %}
+  <a href="{% url 'lesson_detail' i.id %}"><button type="button" class="list-group-item list-group-item-action">{{ i.name }}</button></a>
+    {% endfor %}
+</div>
+{% endblock %}

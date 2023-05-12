@@ -1,11 +1,18 @@
 from django.forms import forms, ModelForm
 
-from book.models import Category
+from book.models import Category, Lesson
 
 
 class CreateCategoryForm(ModelForm):
 
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['name', 'image']
+
+
+class CreateLessonForm(ModelForm):
+
+    class Meta:
+        model = Lesson
+        fields = ['name', 'category_id', 'file', 'description']
 
