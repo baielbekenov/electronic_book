@@ -1,9 +1,10 @@
 from http.client import HTTPResponse
 
 import generics as generics
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from book.forms import CreateCategoryForm, CreateLessonForm
 from book.models import User, Category, Lesson
@@ -45,5 +46,19 @@ def create_lesson(request):
     context = {'form': form}
     return render(request, 'create_lesson.html', context)
 
+
+class Search(ListView):
+    paginated_by = 3
+    template_name = 'lesson_search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Lesson.objects.filter(Q(name__icontains=query))
+        return object_list
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['q'] = self.request.GET.get('q')
+        return context
 
 

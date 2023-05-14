@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+    Контент
+  </button>
+{% for i in object_list %}
+  <a href="{% url 'lesson_detail' i.id %}"><button type="button" class="list-group-item list-group-item-action">{{ i.name }}</button></a>
+    {% endfor %}
+
+{% endblock %}
